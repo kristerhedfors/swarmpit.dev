@@ -1,0 +1,20 @@
+{
+  "name": "swarmpit-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "swarmpit.dev landing page: static HTML/CSS + TypeScript compiled to browser ES modules. Zero runtime dependencies.",
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "serve": "node tools/serve.mjs public 8080",
+    "export": "python3 tools/export.py",
+    "narrate": "python3 -m tools.narrate",
+    "check": "tsc -p . --noEmit && python3 tools/check_public.py public",
+    "test": "tsc -p tsconfig.dev.json && node --test 'tools/test/*.test.mjs'",
+    "demo": "tsc -p tsconfig.dev.json && node tools/dev/demo-serve.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

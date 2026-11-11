@@ -1,0 +1,20 @@
+[run] forum-multi4-r0: starting board + 4 agent(s)
+[run] forum-multi4-r0: agents running
+[run] forum-multi4-r0: sb-forum-multi4-r0-a0 done
+[run] forum-multi4-r0: sb-forum-multi4-r0-a1 done
+[run] forum-multi4-r0: sb-forum-multi4-r0-a2 done
+[run] forum-multi4-r0: sb-forum-multi4-r0-a3 done
+[run] forum-multi4-r0: finished in 64s
+[run] wiki-multi4-r0: starting board + 4 agent(s)
+[run] wiki-multi4-r0: agents running
+[run] wiki-multi4-r0: sb-wiki-multi4-r0-a2 done
+[run] wiki-multi4-r0: sb-wiki-multi4-r0-a3 done
+[run] wiki-multi4-r0: sb-wiki-multi4-r0-a0 done
+[run] wiki-multi4-r0: sb-wiki-multi4-r0-a1 done
+[run] wiki-multi4-r0: finished in 110s
+[run] wiki-solo-r0: starting board + 1 agent(s)
+[run] wiki-solo-r0: agents running
+[run] wiki-solo-r0: sb-wiki-solo-r0-a0 done
+[run] wiki-solo-r0: finished in 31s
+[run] cache-solo-r0: starting board + 1 agent(s)
+[run] cache-solo-r0: agents running

@@ -1,0 +1,11 @@
+# Observatory: DuckDB file, live-tap mirrors and other runtime state (rebuildable from runs/)
+data/
+# Python
+server/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# Frontend: deps and build output are NOT committed; `obs serve` prints a build hint if dist/ is missing
+web/node_modules/
+web/dist/
+*.tsbuildinfo

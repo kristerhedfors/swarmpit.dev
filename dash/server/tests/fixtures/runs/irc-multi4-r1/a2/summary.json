@@ -1,0 +1,15 @@
+{
+  "run": "irc-multi4-r1",
+  "agent": 2,
+  "solved": true,
+  "solve_step": 12,
+  "steps_used": 40,
+  "model_calls": 36,
+  "ended": "budget",
+  "tokens": {
+    "prompt": 280942,
+    "completion": 6163,
+    "cached": 241664
+  },
+  "wall_s": 33.20064091682434
+}

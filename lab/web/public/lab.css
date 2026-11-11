@@ -1,0 +1,65 @@
+/* swarmpit lab: the page around the swarmpit.dev player. Tokens, top bar, sections and the player itself come from
+   /player/css/site.css and /player/css/player.css (copied from site/public/css by build.sh, served from there by
+   dev-server.mjs); this file only adds the lab's own pieces: badge, banner, empty state, live panel, dialogs. */
+.badge{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#ffd27a;border:1px solid #5a4a1f;background:#241e0d;border-radius:4px;padding:1px 6px}
+.banner{border:1px solid #5a4a1f;background:#1d180c;color:#e9d8a6;border-radius:8px;padding:8px 10px;margin:0 0 10px;font-size:12.5px;line-height:1.45}
+.banner code{color:#ffd27a}
+.mono{font-family:var(--mono);font-size:12px;color:var(--t2)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.row.end{justify-content:flex-end}
+.error{color:var(--status-critical);font-size:13px}
+.warn{color:var(--status-warning)}
+.note{color:var(--t3)}
+.lab-btn{border:1px solid var(--bs);background:var(--s2);color:var(--t1);border-radius:8px;padding:6px 14px;font-size:14px}
+.lab-btn:hover:not([disabled]){border-color:var(--t2)}
+.lab-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.lab-btn[disabled]{opacity:.45;cursor:default}
+.lab-notice{max-width:var(--maxw);margin:10px auto 0;padding:8px 14px;border:1px solid var(--bd);border-radius:8px;background:var(--s1);font-size:13.5px}
+.lab-notice.bad{border-color:color-mix(in srgb,var(--status-critical) 60%,transparent);color:var(--status-critical)}
+
+/* selector action chips (+ / upload / download / delete) and the Local lane */
+.sel-acts .chip.sel-act[data-act="new"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;padding:3px 12px}
+.sel-local{max-height:120px;overflow:auto}
+
+/* empty state: the player has no run (.pl-empty); everything but the stage background is hidden */
+.lab-empty{display:none;position:absolute;inset:0;z-index:4;pointer-events:none;place-content:center;justify-items:center;text-align:center;padding:24px;color:var(--t2)}
+.lab-empty p{margin:6px 0;pointer-events:auto}
+.player.pl-empty .lab-empty{display:grid}
+.player.pl-empty .tl,.player.pl-empty .feed,.player.pl-empty .hud,.player.pl-empty .stage-gl,.player.pl-empty .sel-info,
+.player.pl-empty .gk-li{visibility:hidden}
+
+/* live panel (floats in the left column under the selector) */
+.lab-live{padding:10px 12px;font-size:13px}
+.player:not(.text-view) .lab-live{background:var(--float-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--bd);border-radius:12px;overflow:auto;flex:0 1 auto;min-height:0}
+.lv-head{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.lv-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin:8px 0}
+.lv-stats div{border:1px solid var(--bd);border-radius:6px;padding:3px 6px;min-width:0}
+.lv-stats dt{font-size:10.5px;color:var(--t3)}
+.lv-stats dd{margin:0;font-family:var(--mono);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lv-lanes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+.lv-lane{display:grid;grid-template-columns:2.6em minmax(0,1fr) auto;gap:6px;align-items:center;border-left:3px solid var(--lane,var(--series-1));padding:2px 6px;background:var(--s2);border-radius:4px}
+.lv-lane .lv-i{font-weight:700;color:var(--lane,var(--series-1))}
+.lv-lane .lv-ph{color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lv-lane .lv-n{font-family:var(--mono);font-size:11.5px;color:var(--t3)}
+.lv-lane.ended .lv-ph{color:var(--t3)}
+.lv-lane.board{--lane:var(--task)}
+.lv-lane.a0{--lane:var(--series-1)}.lv-lane.a1{--lane:var(--series-2)}.lv-lane.a2{--lane:var(--series-3)}.lv-lane.a3{--lane:var(--series-4)}
+.lv-logbox{margin-top:6px;color:var(--t3)}
+.log{list-style:none;padding:0;margin:6px 0 0;font-family:var(--mono);font-size:11.5px;max-height:220px;overflow:auto}
+.log li{border-top:1px solid var(--bd);padding:3px 0;white-space:pre-wrap;word-break:break-word;color:var(--t2)}
+.log .k{color:var(--accent)} .log .x{color:var(--t3)}
+
+/* dialogs */
+.lab-dlg{background:var(--s1);color:var(--t1);border:1px solid var(--bs);border-radius:14px;padding:18px 20px;width:min(640px,calc(100vw - 24px));box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lab-dlg::backdrop{background:rgba(0,0,0,.6)}
+.lab-dlg h2{font-size:18px;margin-bottom:12px}
+.lab-dlg .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:10px 14px}
+.lab-dlg label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--t3)}
+.lab-dlg label.inline{flex-direction:row;align-items:center;gap:8px;color:var(--t1);font-size:13.5px;margin:6px 0}
+.lab-dlg input:not([type=checkbox]),.lab-dlg select{color:var(--t1);background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:6px 8px;font-size:14px}
+.lab-dlg details{margin:10px 0;color:var(--t2)}
+.lab-dlg summary{cursor:pointer}
+.lab-dlg details .grid{margin-top:10px}
+.lab-dlg .compat{border:1px solid var(--bd);border-radius:8px;margin:10px 0 0;padding:4px 10px 6px}
+.lab-dlg .compat legend{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--t3)}
+@media (max-width:720px){.lv-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}

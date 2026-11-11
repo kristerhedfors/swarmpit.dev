@@ -1,0 +1,21 @@
+{
+  "name": "swarmpit-lab-web",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "test": "node --test 'test/*.test.mjs'",
+    "e2e": "node test/e2e.mjs",
+    "spikes": "node spikes/run.mjs",
+    "build": "./build.sh",
+    "deploy": "./deploy.sh",
+    "verify": "./cloudflare/verify.sh"
+  },
+  "devDependencies": {
+    "playwright": "1.58.2",
+    "wrangler": "4.149.0"
+  }
+}

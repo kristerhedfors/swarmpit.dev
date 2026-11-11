@@ -1,0 +1,9 @@
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Resource-Policy: same-origin
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=(), serial=()
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://cxrtnc.leaningtech.com 'wasm-unsafe-eval'; worker-src 'self' blob: https://cxrtnc.leaningtech.com; connect-src 'self' https://cxrtnc.leaningtech.com https://vm.swarmpit.dev https://api.openai.com https://openrouter.ai https://api.groq.com https://api.cerebras.ai https://api.berget.ai https://api.together.xyz https://api.mistral.ai https://api.deepseek.com http://localhost:* http://127.0.0.1:*; style-src 'self'; img-src 'self' data:; font-src 'self'; frame-src 'self'; frame-ancestors 'self'; base-uri 'none'; form-action 'none'
+  Cache-Control: public, max-age=0, must-revalidate, no-transform

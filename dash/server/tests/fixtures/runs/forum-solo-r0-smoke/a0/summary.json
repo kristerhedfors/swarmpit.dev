@@ -1,0 +1,15 @@
+{
+  "run": "forum-solo-r0-smoke",
+  "agent": 0,
+  "solved": true,
+  "solve_step": 10,
+  "steps_used": 10,
+  "model_calls": 11,
+  "ended": "voluntary_stop",
+  "tokens": {
+    "prompt": 29069,
+    "completion": 1698,
+    "cached": 17408
+  },
+  "wall_s": 116.15717148780823
+}

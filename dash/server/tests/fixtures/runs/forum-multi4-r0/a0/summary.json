@@ -1,0 +1,15 @@
+{
+  "run": "forum-multi4-r0",
+  "agent": 0,
+  "solved": true,
+  "solve_step": 15,
+  "steps_used": 40,
+  "model_calls": 34,
+  "ended": "budget",
+  "tokens": {
+    "prompt": 185211,
+    "completion": 4282,
+    "cached": 153600
+  },
+  "wall_s": 26.119768857955933
+}

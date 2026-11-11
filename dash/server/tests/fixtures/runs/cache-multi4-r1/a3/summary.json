@@ -1,0 +1,15 @@
+{
+  "run": "cache-multi4-r1",
+  "agent": 3,
+  "solved": true,
+  "solve_step": 15,
+  "steps_used": 40,
+  "model_calls": 33,
+  "ended": "budget",
+  "tokens": {
+    "prompt": 302199,
+    "completion": 7470,
+    "cached": 273408
+  },
+  "wall_s": 29.56108570098877
+}

@@ -1,0 +1,30 @@
+.env
+/runs/
+__pycache__/
+*.pyc
+lab/vendor/
+/dist/
+/lab/web/dist/
+.wrangler/
+node_modules/
+# run zips carry the run's board content and transcripts; keep them out of the tree
+*.zip
+# secrets and local agent/tool state; never publish
+.env.*
+!.env.example
+.dev.vars
+*.pem
+*.key
+.claude/
+# separate repo checked out inside this tree
+/aisecurityliteracy.dev/
+# synthetic agent chatter and instigation-study candidate seeds / registry are adversarial test data
+# (post bodies, authors, generated board seeds); keep every copy out of the tree. The only published
+# instigation artifact is site/public/data/instigation/scoreboard.json (numbers + opaque ids only).
+data/synthetic-agent-chatter/
+data/instigation/
+# instigation training dataset (lab/study/dataset.py, lab/study/PROTOCOL.md section 9): every version dir, its
+# .tar.gz and the `latest` pointer live under data/synthetic-agent-chatter/dataset/ (ignored above). Stray copies
+# elsewhere are ignored too; tools/leakgate.py fails closed (E_TRACKED) if any of them is force-added.
+*.chatter.json
+swarmpit-instigation*

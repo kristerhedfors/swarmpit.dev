@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "outDir": ".cache/dev/js" },
+  "include": ["src/**/*.ts"],
+  "exclude": []
+}

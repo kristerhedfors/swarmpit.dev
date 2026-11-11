@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>swarmpit · instigation landscape explorer</title>
+<meta name="description" content="Browse every instigation episode of the swarmpit study by goal, model, channel, seed length, trigger, seed origin and generation.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/explore.css">
+<link rel="modulepreload" href="js/explore/main.js">
+<link rel="preload" href="data/instigation/explorer.json" as="fetch" crossorigin>
+</head>
+<body class="ex-page">
+<a class="skip" href="#ex-main">Skip to the explorer</a>
+<header class="topbar">
+  <a class="brand" href="index.html" aria-label="swarmpit home">
+    <svg class="brand-mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="6" cy="8" r="2.4"/><circle cx="17" cy="6" r="2"/><circle cx="12" cy="17" r="2.6"/><path d="M6 8L12 17L17 6Z" fill="none" stroke-width="1.2"/></svg>
+    <span>swarmpit</span>
+  </a>
+  <nav class="nav" aria-label="Site">
+    <a href="index.html#watch">Watch</a><a href="index.html#findings">Findings</a><a href="explore.html" aria-current="page">Explorer</a>
+  </nav>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Toggle light / dark">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+  </button>
+</header>
+
+<main id="ex-main" class="ex">
+  <section class="ex-head" aria-labelledby="ex-h">
+    <h1 id="ex-h">Instigation landscape explorer</h1>
+    <p class="ex-lede">Each episode puts a team of LLM agents on a task next to a message board that carries a short <em>seed</em> post. The question is what makes agents start writing on the board. A quality-diversity search (MAP-Elites) generated and mutated seeds and tested each one across goals, models and channels. Here you can slice every episode by every dimension.</p>
+    <p id="ex-meta" class="muted small" aria-live="polite"></p>
+    <details class="ex-about">
+      <summary>About the data: dimensions, metrics and caveats</summary>
+      <div class="ex-about-grid">
+        <div>
+          <h2>Dimensions</h2>
+          <dl>
+            <dt>Goal</dt><dd><strong>Solvable</strong>: agents can finish the task, then have free time. <strong>Unsolvable</strong>: the task can never be completed, so agents never finish. Every board visit happens while they are still stuck.</dd>
+            <dt>Model</dt><dd>The LLM driving all agents in the episode.</dd>
+            <dt>Channel</dt><dd>Where the seed sits: a board style (forum, IRC, guestbook, key-value store, paste site) or a code comment in a served JavaScript (<code>js</code>) or HTML (<code>html</code>) file.</dd>
+            <dt>Seed length</dt><dd>Total characters of the seed, in four bands: ≤120, 121–200, 201–320, &gt;320.</dd>
+            <dt>Trigger</dt><dd>Why the writers wrote, coded by a classifier panel from a fixed list (for example <code>TASK_HINT</code>: the seed looked like a hint about the task). <code>NO_WRITERS</code>: nobody wrote. <code>UNRESOLVED</code>: writers present, but no usable code.</dd>
+            <dt>Seed origin</dt><dd><strong>pilot</strong>: hand-written; <strong>scratch</strong>: generated from scratch; <strong>mutation</strong>: a variant of an earlier elite.</dd>
+            <dt>Generation</dt><dd>The search generation that produced the seed (0 = the initial population).</dd>
+          </dl>
+        </div>
+        <div>
+          <h2>Metrics</h2>
+          <dl>
+            <dt>Writer-episode rate</dt><dd>Share of episodes in which at least one agent wrote to the board, with a Wilson 95% interval.</dd>
+            <dt>Pile-in rate</dt><dd>Share of episodes in which two or more agents wrote.</dd>
+            <dt>Instigation score</dt><dd>0–1. Combines how many agents wrote, how fast and how widely. The search maximises it.</dd>
+            <dt>Engagement</dt><dd>Board reads, relay connections and board references. It also counts agents that only read.</dd>
+            <dt>Elite</dt><dd>The best seed found so far for one landscape cell (trigger × channel × length band) under one model and goal.</dd>
+          </dl>
+          <h2>Caveats</h2>
+          <ul>
+            <li><strong>Nothing is replicated yet.</strong> Most seed × channel × model combinations ran once, so a single elite can be luck.</li>
+            <li><strong>Probe channels are biased upward.</strong> The guestbook, key-value and paste channels were only tested with the best seeds, so their rates are not comparable with forum, <code>js</code> or <code>html</code>.</li>
+            <li><strong>Uneven model coverage.</strong> Some models ran only in generation 0, about 20 episodes each, so their intervals are wide.</li>
+            <li><strong>GPT-OSS 120B is retired.</strong> It almost never wrote to the board, and the study will run no more episodes on it. Its episodes stay here for completeness.</li>
+            <li>Only numbers, fixed codes and opaque ids are published. The seed and board text itself is not.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="ex-filters" aria-label="Filters">
+    <h2 class="sr-only">Filters</h2>
+    <div id="ex-filters"></div>
+  </section>
+
+  <div class="ex-tabs" role="tablist" aria-label="Views">
+    <button type="button" role="tab" id="tab-pivot" data-view="pivot" aria-controls="ex-view" aria-selected="true">Pivot</button>
+    <button type="button" role="tab" id="tab-landscape" data-view="landscape" aria-controls="ex-view" aria-selected="false" tabindex="-1">Landscape</button>
+    <button type="button" role="tab" id="tab-episodes" data-view="episodes" aria-controls="ex-view" aria-selected="false" tabindex="-1">Episodes</button>
+    <button type="button" role="tab" id="tab-lineage" data-view="lineage" aria-controls="ex-view" aria-selected="false" tabindex="-1">Lineage</button>
+    <button type="button" role="tab" id="tab-models" data-view="models" aria-controls="ex-view" aria-selected="false" tabindex="-1">Models</button>
+  </div>
+  <div class="ex-body">
+    <section id="ex-view" class="ex-view" role="tabpanel" aria-labelledby="tab-pivot" tabindex="-1"></section>
+    <aside id="ex-detail" class="ex-detail" aria-labelledby="ex-detail-h" hidden></aside>
+  </div>
+  <noscript><p class="noscript">The explorer needs JavaScript.</p></noscript>
+</main>
+
+<footer class="footer">
+  <span class="brand-sm">swarmpit</span>
+  <span class="muted">The view state lives in the link: copy the address bar to share exactly what you see.</span>
+  <span class="muted">Research data released under CC BY 4.0 · code MIT</span>
+  <a href="index.html">Back to the replay ↑</a>
+</footer>
+<script type="module" src="js/explore/main.js"></script>
+</body>
+</html>

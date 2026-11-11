@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "tts": {
+    "endpoint": "/v1/text-to-speech/{voice_id}/with-timestamps",
+    "outputFormat": "mp3_44100_128",
+    "model": "eleven_v4",
+    "fallbackModel": "eleven_multilingual_v2",
+    "seed": 42,
+    "concurrency": 2
+  },
+  "voices": {
+    "guide": {
+      "voiceId": "Xb7hH8MSUJpSbSDYk0k2",
+      "label": "Play-by-play",
+      "settings": {"stability": 0.55, "similarity_boost": 0.75, "style": 0, "use_speaker_boost": true, "speed": 1.0},
+      "gainDb": 0,
+      "charsPerSec": 14.5
+    },
+    "expert": {
+      "voiceId": "o4szBUsmbkPsvSGUc1En",
+      "label": "Color",
+      "settings": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.1, "use_speaker_boost": true, "speed": 1.0},
+      "gainDb": 0,
+      "charsPerSec": 13.5
+    }
+  },
+  "models": {
+    "qwen-3.8-27b": "Qwen 3.8 27B",
+    "mistralai/Mistral-Small-3.2-24B-Instruct-2506": "Mistral Small 3.2 24B",
+    "zai-org/GLM-5.3-Flash": "GLM 5.3 Flash",
+    "google/gemma-4-31B-it": "Gemma 4 31B",
+    "synthetic": "synthetic test"
+  },
+  "sfx": {
+    "model": "eleven_text_to_sound_v2",
+    "promptInfluence": 0.6,
+    "outputFormat": "mp3_44100_128",
+    "busGainDb": -20,
+    "library": {
+      "boot":    {"prompt": "soft low digital power-on blip, very short, clean",       "seconds": 0.6, "gainDb": -2, "maxMs": 450},
+      "read":    {"prompt": "very soft paper tick, tiny UI click, dry",                "seconds": 0.5, "gainDb": -8, "maxMs": 120},
+      "post":    {"prompt": "soft typewriter key thunk, single, muted",                "seconds": 0.5, "gainDb": -4, "maxMs": 200},
+      "social":  {"prompt": "gentle two-note wooden knock, soft, friendly",            "seconds": 0.6, "gainDb": -4, "maxMs": 300},
+      "join":    {"prompt": "soft airy whoosh in, very short",                         "seconds": 0.6, "gainDb": -5, "maxMs": 350},
+      "contact": {"prompt": "warm soft bell ping, single, short decay",                "seconds": 1.0, "gainDb": 0,  "maxMs": 800},
+      "solve":   {"prompt": "soft bright two-note rising chime, gentle",               "seconds": 1.0, "gainDb": 0,  "maxMs": 900},
+      "leak":    {"prompt": "subtle low warning tone, soft muted pulse, not alarming", "seconds": 1.0, "gainDb": -1, "maxMs": 900},
+      "crash":   {"prompt": "soft muffled glitch thud, short",                         "seconds": 0.6, "gainDb": -3, "maxMs": 400},
+      "end":     {"prompt": "soft descending blip, power down, very short",            "seconds": 0.6, "gainDb": -5, "maxMs": 400},
+      "segment": {"prompt": "very soft airy swell, ambient transition, short",         "seconds": 1.5, "gainDb": -2, "maxMs": 1400},
+      "outro":   {"prompt": "soft warm resolving pad note, gentle fade",               "seconds": 2.0, "gainDb": -1, "maxMs": 2000}
+    }
+  },
+  "mix": {
+    "sampleRate": 24000, "channels": 1, "bitrate": "24k", "lufs": -16, "truePeak": -1.5, "lra": 11,
+    "duck": {"threshold": 0.03, "ratio": 6, "attackMs": 15, "releaseMs": 250}
+  }
+}

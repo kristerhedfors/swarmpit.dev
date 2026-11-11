@@ -1,0 +1,74 @@
+{
+ "boot": {
+  "bytes": 8358,
+  "durationMs": 450,
+  "promptSha": "6f862cc9ca790a9e49dacd866eba912eaf1246dfce754b0c8da53264c862944a",
+  "sha256": "05a8abc4cab26c273d3ff93f41934b64e65b1181da1e8045f1c5ffa728548a98"
+ },
+ "contact": {
+  "bytes": 13791,
+  "durationMs": 800,
+  "promptSha": "cc1a08613256c81c1aeaa3dfe563f515f20a1ec54c6d07b23f01a29712a89cdc",
+  "sha256": "0d9beaa2bfdaf397abcdfd03910634b0ff860e5a0d484b7cc4f6131a273a64e4"
+ },
+ "crash": {
+  "bytes": 7522,
+  "durationMs": 400,
+  "promptSha": "8cbc7384d5c5648f4796943e97a5fe009ce4abfee6f66c3e6a5cd320091ccf00",
+  "sha256": "ae777372741d09595ca6d1fd310887c0bb9abce7ee67757b1feebbe4c72d27d6"
+ },
+ "end": {
+  "bytes": 7522,
+  "durationMs": 400,
+  "promptSha": "0112bf6644bcb156478e4c3a0bb42c4fce5446b9ce9d1131284d8521c57d318a",
+  "sha256": "73ca1d568eb60ef0ede6452b7085f35576e5122b380f1146647c0d4e0ed9b43b"
+ },
+ "join": {
+  "bytes": 6686,
+  "durationMs": 350,
+  "promptSha": "1c0562cc93a805a50593a6e0b1d003fa016107ff5a14e8d37e8859799452860a",
+  "sha256": "ff1f31d73d3f025491844c47462131bf4b10ceb320ea16594f4f9c71cb0700e6"
+ },
+ "leak": {
+  "bytes": 15463,
+  "durationMs": 900,
+  "promptSha": "10c7523967031f3ebfb5b230a87387b089c08c404a90d4895e70584d3c26184c",
+  "sha256": "d058de62f8933cf46d567d34c89b4b159b642c7d0c18f49a5db21238cdede5e1"
+ },
+ "outro": {
+  "bytes": 33017,
+  "durationMs": 2000,
+  "promptSha": "b9188192b0d9811ce7f5a49dcb6c4222ba44ce534d670c69bb2b1d26b5880795",
+  "sha256": "cbf8a4588c29c23275a46a7e873e1329f435e1733bc64fe99256ed3f186a8a78"
+ },
+ "post": {
+  "bytes": 4178,
+  "durationMs": 200,
+  "promptSha": "e8412d249aad47f7169a3934c751eec326cafb3bbe7bcaa763c0b7476bdf2702",
+  "sha256": "7c8e3e9fa386dd36452ef57d7235d1a24bb43559f2e47ac3edd96881fe69586b"
+ },
+ "read": {
+  "bytes": 2924,
+  "durationMs": 120,
+  "promptSha": "d88b29970a6ecd94ff9626e7f015ec310a6c24cd4699c3b66e6a2ed73369e745",
+  "sha256": "1824e537457da33e99a901d0d8c025d2c4cf5bda81c45a74087b6e5b3046ff26"
+ },
+ "segment": {
+  "bytes": 23404,
+  "durationMs": 1400,
+  "promptSha": "c292cf4dc74048ea97064fa27b45e31c1d7c3abea8f3721eda1511201462699f",
+  "sha256": "96e7aa747209691ae874dd875a5f0900a2c37f8276deac0ca62f7a4444171768"
+ },
+ "social": {
+  "bytes": 5850,
+  "durationMs": 300,
+  "promptSha": "00cd8cc5ba49ace5d98ff050b245a4bc24a0b4f7e88c140676bacb4e1ce7cae2",
+  "sha256": "5d569b2c7e5a4a4f5f8a280e906dd8247bbeca076766e5d70148ad6fe1103f69"
+ },
+ "solve": {
+  "bytes": 15463,
+  "durationMs": 900,
+  "promptSha": "929e0a91314b5f7b597b9914cca3c38f5d6fae795c524586012e22faf0281ac0",
+  "sha256": "4e882f92371a1b0e05ea6c10ba9ff7e4d9d6c93dc64575b300faf066f0b15662"
+ }
+}

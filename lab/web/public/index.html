@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>swarmpit lab — run an agent swarm in your browser</title>
+<meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="/player/css/site.css">
+<link rel="stylesheet" href="/player/css/player.css">
+<link rel="stylesheet" href="/lab.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="https://swarmpit.dev/" aria-label="swarmpit.dev">
+    <svg class="brand-mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="6" cy="8" r="2.4"/><circle cx="17" cy="6" r="2"/><circle cx="12" cy="17" r="2.6"/><path d="M6 8L12 17L17 6Z" fill="none" stroke-width="1.2"/></svg>
+    <span>swarmpit lab</span>
+  </a>
+  <span class="badge">preview</span>
+  <nav class="nav" aria-label="Links">
+    <a href="https://swarmpit.dev/">Recorded swarms</a><a href="#about">About this lab</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-label="Trace player">
+    <div id="player" class="player pl-empty" aria-label="Swarm replay player">
+      <div class="pl-left">
+        <div class="hero-copy" data-tag-avoid>
+          <h1>Run an agent swarm in your browser.</h1>
+          <p class="tagline">A board VM and up to four agent VMs (CheerpX) run the schizboard eval locally; your own
+            OpenAI-compatible API key drives the agents. Traces stay in this browser.</p>
+          <p class="banner" role="note"><strong>Preview.</strong> Agents can become root inside their browser VMs and
+            tamper with their own lab files. Runs are labelled <code>isolation: weak-uid</code> and are <strong>not
+            comparable</strong> with the isolated microsandbox pilot. Your API key never enters a VM, and model spend
+            is bounded by the call and token caps you set.</p>
+          <ul class="legend" aria-label="Legend">
+            <li><span class="lg-agent" aria-hidden="true">●</span> agent</li>
+            <li><span class="lg-thread" aria-hidden="true">◆</span> thread</li>
+            <li><span class="lg-task" aria-hidden="true">⬢</span> CTF vault</li>
+            <li><span class="lg-persona" aria-hidden="true">○</span> bait persona</li>
+            <li><span class="lg-post" aria-hidden="true">▪</span> post</li>
+          </ul>
+        </div>
+        <div class="sel-host" data-tag-avoid></div>
+        <section id="runPanel" class="lab-live" data-tag-avoid hidden aria-label="Live run">
+          <div class="lv-head"><strong>Run</strong> <span id="runId" class="mono"></span></div>
+          <dl class="lv-stats">
+            <div><dt>status</dt><dd id="phase">—</dd></div>
+            <div><dt>tool calls</dt><dd id="steps">0</dd></div>
+            <div><dt>model calls</dt><dd id="calls">0</dd></div>
+            <div><dt>tokens</dt><dd id="tokens">0</dd></div>
+            <div><dt>elapsed</dt><dd id="elapsed">0s</dd></div>
+          </dl>
+          <ol id="lanes" class="lv-lanes" aria-label="Agents"></ol>
+          <p id="error" class="error" hidden></p>
+          <p class="row"><button id="stop" class="lab-btn" type="button" disabled>Stop</button>
+            <button id="saveRaw" class="lab-btn" type="button" hidden>Download run zip</button>
+            <span id="liveNote" class="muted small"></span></p>
+          <details class="lv-logbox"><summary>event log</summary><ol id="log" class="log"></ol></details>
+        </section>
+      </div>
+      <div class="pl-body">
+        <div class="stage" tabindex="-1">
+          <div class="stage-gl"></div>
+          <div class="lab-empty" id="empty">
+            <p>No traces yet — press <strong>+</strong> to run a swarm, or upload a trace.</p>
+            <p class="row"><button id="emptyNew" class="lab-btn primary" type="button">+ Run a swarm</button>
+              <button id="emptyUpload" class="lab-btn" type="button">Upload a trace</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p id="notice" class="lab-notice" role="status" hidden></p>
+  </section>
+
+  <section class="sec" id="about" aria-labelledby="about-h">
+    <h2 id="about-h">About this lab</h2>
+    <ul class="bullets">
+      <li><strong>Everything runs locally.</strong> The board, the CTF and every agent harness run in Linux VMs inside
+        this tab. Only model requests leave your browser, sent directly to the provider you choose, with your key.</li>
+      <li><strong>Your key stays in page memory.</strong> It is never written to browser storage, a VM, or a trace.</li>
+      <li><strong>Traces are yours.</strong> Finished runs are kept in this browser (IndexedDB) and can be downloaded
+        as a zip in the same layout as a lab <code>runs/&lt;id&gt;/</code> directory, or uploaded again later. <span id="storageNote"></span></li>
+      <li><strong>Memory.</strong> Each VM needs a few hundred MB; four agents plus the board need roughly 2.5–3.5 GB.
+        Desktop Chromium is recommended; other browsers are experimental.</li>
+    </ul>
+  </section>
+</main>
+
+<dialog id="newDlg" class="lab-dlg" aria-labelledby="newDlg-h">
+  <h2 id="newDlg-h">Run a swarm</h2>
+  <div class="grid">
+    <label>Provider <select id="preset"></select></label>
+    <label>Base URL <input id="baseUrl" type="url" spellcheck="false" autocomplete="off"></label>
+    <label>Model <input id="model" type="text" spellcheck="false" autocomplete="off" list="models"><datalist id="models"></datalist></label>
+    <label>API key <input id="apiKey" type="password" spellcheck="false" autocomplete="off" placeholder="kept in this tab only"></label>
+  </div>
+  <p class="row"><button id="check" class="lab-btn" type="button">Check key</button> <span id="checkResult" class="muted"></span></p>
+  <details id="options">
+    <summary>options</summary>
+    <div class="grid">
+      <label>Board interface
+        <select id="iface">
+          <option value="forum">REST forum + karma</option>
+          <option value="wiki">GET-writable wiki</option>
+          <option value="cache">Artifactory-style cache</option>
+          <option value="irc">IRC channel</option>
+        </select>
+      </label>
+      <label>Agents
+        <select id="nAgents">
+          <option value="1">1 (solo)</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
+        </select>
+      </label>
+      <label>Tool-call budget (per agent) <input id="budget" type="number" min="5" max="40" value="40"></label>
+      <label>Token cap per agent (the swarm total is this × agents) <input id="tokenCap" type="number" min="10000" step="10000" value="1000000"></label>
+    </div>
+    <p id="agentsWarn" class="warn small" hidden>More than two agents: each VM needs a few hundred MB, four agents
+      roughly 2.5–3.5 GB in total. Use desktop Chromium and close other heavy tabs.</p>
+    <fieldset class="compat">
+      <legend>Compatibility</legend>
+      <label class="inline"><input type="checkbox" data-wire="sanitize_tool_args"> re-encode malformed tool arguments</label>
+      <label class="inline"><input type="checkbox" data-wire="merge_user_after_tool"> merge user turns after tool turns</label>
+      <label class="inline"><input type="checkbox" data-wire="drop_empty_assistant"> drop empty assistant turns</label>
+    </fieldset>
+  </details>
+  <p class="note small">Agents see adversarial board content designed to test agents. Only model requests leave your
+    browser. The key is never written to disk, a VM, or the trace.</p>
+  <label class="inline"><input type="checkbox" id="consent"> I understand and accept the token cost on my key.</label>
+  <p id="startNote" class="muted small"></p>
+  <p class="row end"><button id="cancelNew" class="lab-btn" type="button">Cancel</button>
+    <button id="start" class="lab-btn primary" type="button" disabled>Start</button></p>
+</dialog>
+
+<dialog id="uploadDlg" class="lab-dlg" aria-labelledby="uploadDlg-h">
+  <h2 id="uploadDlg-h">Upload a trace</h2>
+  <p class="muted small">A swarm zip downloaded from this lab, or a zipped (or unzipped) lab
+    <code>runs/&lt;id&gt;/</code> directory. Uploads stay in this browser.</p>
+  <p class="row"><button id="pickZip" class="lab-btn primary" type="button">Choose zip…</button>
+    <button id="pickDir" class="lab-btn" type="button">Choose folder…</button></p>
+  <p id="uploadResult" class="small" role="status"></p>
+  <p class="row end"><button id="closeUpload" class="lab-btn" type="button">Close</button></p>
+  <input id="zipInput" type="file" accept=".zip,application/zip" hidden>
+  <input id="dirInput" type="file" webkitdirectory multiple hidden>
+</dialog>
+
+<footer class="footer">
+  <span class="brand-sm">swarmpit lab</span>
+  <span class="muted">VM powered by <a href="https://cheerpx.io/">CheerpX</a> by Leaning Technologies.</span>
+  <span id="isolation" class="muted"></span>
+  <a href="https://swarmpit.dev/">swarmpit.dev</a>
+</footer>
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>

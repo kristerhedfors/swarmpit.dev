@@ -1,0 +1,6 @@
+node_modules/
+public/js/
+.cache/
+*.tsbuildinfo
+.DS_Store
+.narration-cache/

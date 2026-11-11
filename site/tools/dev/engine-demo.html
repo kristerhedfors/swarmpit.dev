@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>swarmpit engine demo (synthetic data)</title>
+<style>
+  :root { color-scheme: dark; --page: #0d0d0d; --text-primary: #fff; --text-muted: #898781; --accent: #3987e5;
+          --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+          --series-5: #d55181; --series-6: #008300; --series-7: #9085e9; --series-8: #e66767;
+          --neutral-mark: #6b6a64; --live-live: #f5c542; --leak: #e66767; }
+  html, body { margin: 0; height: 100%; background: var(--page); color: var(--text-primary); font: 13px/1.4 system-ui, sans-serif; }
+  #wrap { display: flex; flex-direction: column; height: 100%; }
+  .player { position: relative; flex: 1; min-height: 0; }
+  #stage { position: absolute; inset: 0; overflow: hidden; }
+  .bar { display: flex; gap: 10px; align-items: center; padding: 8px 12px; background: #1a1a19; border-top: 1px solid #2c2c2a; flex-wrap: wrap; }
+  .bar input[type=range] { flex: 1; min-width: 160px; accent-color: var(--accent); }
+  button, select { background: #222220; color: inherit; border: 1px solid #383835; border-radius: 6px; padding: 4px 10px; font: inherit; cursor: pointer; }
+  button:focus-visible, select:focus-visible, input:focus-visible, canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  #time { font-variant-numeric: tabular-nums; min-width: 9em; }
+  #info, #status { color: var(--text-muted); font-size: 12px; }
+  .tag { font: 11.5px/18px system-ui, sans-serif; padding: 0 5px; border-radius: 4px; background: rgba(13,13,13,.72);
+         color: #e8e6dc; border: 1px solid rgba(255,255,255,.08); transition: opacity .15s; }
+  .tag--agent { color: #fff; font-weight: 600; } .tag--hull { color: var(--live-live); border-color: rgba(245,197,66,.4); }
+  .tag.is-pinned, .tag.is-hover { border-color: var(--accent); } .tag.is-leak { border-color: var(--leak); }
+  .stage-hint { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,.75);
+                padding: 8px 14px; border-radius: 8px; color: #fff; }
+  .stage-chip { position: absolute; right: 10px; bottom: 10px; }
+  .stage-ripple { background: rgba(255,255,255,.15); padding: 10px 16px; border-radius: 30px; }
+  #tip { position: absolute; left: 0; top: 0; max-width: 320px; white-space: pre-wrap; background: #222220; border: 1px solid #383835;
+         border-radius: 6px; padding: 6px 8px; pointer-events: none; font-size: 12px; z-index: 4; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="player">
+    <div id="stage" aria-label="Engine demo stage"></div>
+    <div id="tip" hidden></div>
+  </div>
+  <div class="bar">
+    <button id="play" type="button" aria-label="Play or pause">Play</button>
+    <input id="t" type="range" min="0" max="1" step="1" value="0" aria-label="Playback position">
+    <span id="time">0:00.0</span>
+    <select id="speed" aria-label="Playback speed"></select>
+    <button id="mode" type="button" aria-label="Toggle view mode">constellation</button>
+    <button id="reset" type="button">Reset view</button>
+    <label><input id="labels" type="checkbox" checked> labels</label>
+    <label><input id="follow" type="checkbox"> follow now</label>
+    <button id="lose" type="button" title="Simulate WebGL context loss">Lose context</button>
+    <span id="info"></span>
+    <span id="status"></span>
+  </div>
+</div>
+<noscript>This demo needs JavaScript.</noscript>
+<script type="module" src="js/engine/dev/demo.js"></script>
+</body>
+</html>

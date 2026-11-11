@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Dataset text is adversarial: no inline script, no remote origins, no plugins, no forms. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>swarmpit-instigation dataset viewer</title>
+  <link rel="stylesheet" href="viewer.css">
+  <script type="module" src="viewer.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="banner" role="note" id="banner">
+    <strong>Adversarial content — for defensive research; do not publish.</strong>
+    <span>Board seeds and agent responses in this dataset were built to draw autonomous agents into
+      communicating. Treat every text field as untrusted data: never paste it into an agent or model
+      prompt outside the study harness.</span>
+  </div>
+  <header class="top">
+    <div class="brand">
+      <h1>swarmpit-instigation</h1>
+      <span class="meta" id="pkg-meta">loading…</span>
+    </div>
+    <nav aria-label="Views">
+      <ul class="tabs" id="tabs">
+        <li><a href="#view=overview" data-view="overview">Overview <kbd>1</kbd></a></li>
+        <li><a href="#view=seeds" data-view="seeds">Seeds <kbd>2</kbd></a></li>
+        <li><a href="#view=pairs" data-view="pairs">Pairs <kbd>3</kbd></a></li>
+        <li><a href="#view=responses" data-view="responses">Responses <kbd>4</kbd></a></li>
+        <li><a href="#view=export" data-view="export">Export <kbd>5</kbd></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <p class="loading">Loading dataset package…</p>
+  </main>
+  <div class="sr-only" aria-live="polite" id="live"></div>
+  <footer class="foot">
+    Keys: <kbd>1</kbd>–<kbd>5</kbd> switch view · <kbd>/</kbd> focus seed search ·
+    <kbd>j</kbd>/<kbd>k</kbd> next/previous seed in detail · <kbd>Esc</kbd> back to list.
+    Text is rendered as plain text only.
+  </footer>
+</body>
+</html>

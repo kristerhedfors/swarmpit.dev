@@ -1,0 +1,17 @@
+# Lab site for lab.swarmpit.dev: static assets only (built into ../dist by lab/web/build.sh), no Worker script yet.
+# Phase 2 adds `main = "src/index.ts"` and `run_worker_first` for the CSP-injecting shell
+# (docs/browser-sandbox-plan.md, section 6, step 3).
+name = "swarmpit-lab"
+compatibility_date = "2026-09-01"
+# account_id comes from $CLOUDFLARE_ACCOUNT_ID (kept in .env, not in git)
+
+routes = [{ pattern = "lab.swarmpit.dev", custom_domain = true }]
+
+[assets]
+directory = "../dist"
+not_found_handling = "404-page"
+# html_handling stays the default auto-trailing-slash: "/" serves index.html and /vmframe serves vmframe.html
+# (swarm.js loads the VM frames from the extensionless /vmframe, so no redirect per frame)
+
+[observability]
+enabled = false

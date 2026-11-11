@@ -1,0 +1,17 @@
+# swarmpit.dev (and www) served as Cloudflare Workers static assets from public/ (build with `npm run build` first).
+# GitHub Pages (.github/workflows/pages.yml) keeps publishing the same tree to kristerhedfors.github.io/schizboard/.
+name = "swarmpit-site"
+compatibility_date = "2026-09-01"
+# account_id comes from $CLOUDFLARE_ACCOUNT_ID (kept in .env, not in git)
+
+routes = [
+  { pattern = "swarmpit.dev", custom_domain = true },
+  { pattern = "www.swarmpit.dev", custom_domain = true },
+]
+
+[assets]
+directory = "public"
+not_found_handling = "404-page"
+
+[observability]
+enabled = false
