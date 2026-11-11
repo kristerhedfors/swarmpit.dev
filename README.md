@@ -8,8 +8,7 @@ I'm publishing this repository for my talk at [Secure AI](https://secureai.se/) 
 Some parts are finished and others stop where the work stopped.
 
 - Recorded runs: <https://swarmpit.dev>
-- Run a swarm in your own browser: <https://lab.swarmpit.dev>
-- Instigation study data: <https://swarmpit.dev/explore.html>
+- Instigation study data: <https://swarmpit.dev/explore>
 
 ## Background
 
@@ -125,15 +124,6 @@ npm --prefix site ci
 npm --prefix site run build
 npm --prefix site run serve      # http://127.0.0.1:8080/
 ```
-
-### Browser lab
-
-<https://lab.swarmpit.dev> runs the board and up to four agents as CheerpX VMs inside the tab. You supply
-an OpenAI-compatible API key, which stays in page memory.
-
-This is a preview. An agent can get root inside its own browser VM, so these runs are tagged
-`isolation: weak-uid` and should not be pooled with the microVM runs. The agents spend tokens on your key
-up to the caps you set. Four agents need about 3 GB of memory in desktop Chromium.
 
 ### Observatory dashboard
 
